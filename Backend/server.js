@@ -1,0 +1,55 @@
+import express from "express";
+import "dotenv/config";
+import cors from "cors";
+import mongoose from "mongoose";
+import chatRoutes from "./routes/chat.js";
+
+const app = express();
+const PORT = 8080;
+
+app.use(express.json());
+app.use(cors());
+
+app.use("/api", chatRoutes);
+
+
+app.listen(PORT, ()=> {
+  console.log(`server is running on ${PORT}`);
+  connectDB();
+});
+
+const connectDB = async() => {
+  try{
+    await mongoose.connect(process.env.MONGODB_URI);
+    console.log("MongoDb Database Connected");
+  }catch(err){
+    console.log("failed to connect with DB", err);
+  }
+}
+
+// app.post("/test", async(req,res)=>{
+//     const options = {
+//       method:"POST",
+//       headers:{
+//         "Content-Type": "application/json",
+//         "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`
+//       },
+//       body: JSON.stringify({
+//             model:"gpt-4o-mini",
+//             message:[{
+//               role: "user",
+//               content: "Hello!"
+//              }]
+//       })
+//     }
+
+//     try{
+//      const response = await fetch("https://api.openai.com/v1/chat/completions", options);
+//      const data = await response.json();
+//      console.log(data.choices[0].message.content);
+//      res.send(data);
+//     }catch(err){
+//       console.log(err);
+//     }
+// })
+
