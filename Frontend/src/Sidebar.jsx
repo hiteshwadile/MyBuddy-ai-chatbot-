@@ -8,7 +8,7 @@ function Sidebar() {
     
     const getAllThreads = async ()=> {
         try{
-           const response =  await fetch(`${import.meta.env.VITE_API_URL}/api/chat`);
+           const response = await fetch(`${import.meta.env.VITE_API_URL}/api/thread`);
             const res = await response.json();
             const filterData = res.map(thread => ({threadId: thread.threadId, title: thread.title}));
             //console.log(filterData);
@@ -37,7 +37,7 @@ function Sidebar() {
         setReply(null);
 
         try{
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/chat`);
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/thread/${newThreadId}`);
             const res = await response.json();
 
              if (!response.ok) {
@@ -59,23 +59,49 @@ function Sidebar() {
     };
 
 
+    // const deleteThread = async (threadId) => {
+
+    //    try{
+    //     const response = await fetch(`${import.meta.env.VITE_API_URL}/api/chat`, {method: "DELETE" })
+    //     const res = await response.json();
+    //     console.log(res);
+
+    //     //updated threads re-render
+    //     setAllThreads(prev => prev.filter(thread => thread.threadId != threadId));
+    //     if(threadId === currThreadId) {
+    //         createNewChat();
+    //     }
+
+    //     }catch(err){
+    //         console.log(err);
+    //     }
+    // }
+
     const deleteThread = async (threadId) => {
+    try {
+        const response = await fetch(
+            `${import.meta.env.VITE_API_URL}/api/thread/${threadId}`,
+            { method: "DELETE" }
+        );
 
-       try{
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/chat`, {method: "DELETE" })
         const res = await response.json();
-        console.log(res);
 
-        //updated threads re-render
-        setAllThreads(prev => prev.filter(thread => thread.threadId != threadId));
-        if(threadId === currThreadId) {
+        if (!response.ok) {
+            throw new Error(res.error || "Failed to delete thread");
+        }
+
+        setAllThreads(prev =>
+            prev.filter(thread => thread.threadId !== threadId)
+        );
+
+        if (threadId === currThreadId) {
             createNewChat();
         }
 
-        }catch(err){
-            console.log(err);
-        }
+    } catch (err) {
+        console.log(err);
     }
+};
 
     return (
         <section className="sidebar">
