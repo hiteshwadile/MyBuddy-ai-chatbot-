@@ -40,7 +40,7 @@ const [isOpen, setIsOpen] = useState(false);
 console.log("Thread ID:", currThreadId);
 
 
-            const response = await fetch("http://localhost:8080/api/chat", options );
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/chat`);
             const data = await response.json();
             console.log(data);
             setReply(data.reply);
