@@ -5,7 +5,7 @@ import mongoose from "mongoose";
 import chatRoutes from "./routes/chat.js";
 
 const app = express();
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 
 app.use(express.json());
 app.use(cors());
@@ -13,19 +13,30 @@ app.use(cors());
 app.use("/api", chatRoutes);
 
 
-app.listen(PORT, ()=> {
-  console.log(`server is running on ${PORT}`);
-  connectDB();
-});
+const connectDB = async () => {
+    try {
+        await mongoose.connect(process.env.MONGODB_URI);
+        console.log("MongoDB Database Connected");
+    } catch (err) {
+        console.log("Failed to connect with DB", err);
+        throw err;
+    }
+};
 
-const connectDB = async() => {
-  try{
-    await mongoose.connect(process.env.MONGODB_URI);
-    console.log("MongoDb Database Connected");
-  }catch(err){
-    console.log("failed to connect with DB", err);
-  }
-}
+const startServer = async () => {
+    try {
+        await connectDB();
+
+        app.listen(PORT, "0.0.0.0", () => {
+            console.log(`Server is running on port ${PORT}`);
+        });
+    } catch (err) {
+        console.error("Server startup failed:", err);
+        process.exit(1);
+    }
+};
+
+startServer();
 
 // app.post("/test", async(req,res)=>{
 //     const options = {
