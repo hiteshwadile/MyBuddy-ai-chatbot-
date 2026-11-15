@@ -4,7 +4,17 @@ import { MyContext } from "./MyContext.jsx";
 import { v1 as uuidv1 } from "uuid";
 
 function Sidebar() {
-    const {allThreads, setAllThreads, currThreadId, setNewChat, setPrompt, setReply, setCurrThreadId, setPrevChats} = useContext(MyContext);
+    const {allThreads, 
+        setAllThreads, 
+        currThreadId, 
+        setNewChat, 
+        setPrompt, 
+        setReply, 
+        setCurrThreadId, 
+        setPrevChats,
+        isSidebarOpen,      //adding for responsiveness
+        setIsSidebarOpen
+    } = useContext(MyContext);
     
     const getAllThreads = async ()=> {
         try{
@@ -30,11 +40,13 @@ function Sidebar() {
         setReply(null);
         setCurrThreadId(uuidv1());
         setPrevChats([]);
+        setIsSidebarOpen(false);     //for responsiveness
     }
 
     const changeThread =  async (newThreadId) => {
         setCurrThreadId(newThreadId);
         setReply(null);
+        setIsSidebarOpen(false);     //for responsiveness
 
         try{
             const response = await fetch(`${import.meta.env.VITE_API_URL}/api/thread/${newThreadId}`);
@@ -104,7 +116,8 @@ function Sidebar() {
 };
 
     return (
-        <section className="sidebar">
+        //  for responsiveness er take classname and other like this
+        <section className={`sidebar ${isSidebarOpen ? "sidebar-open" : ""}`}>   
             {/* {new chat button} */}
             <button onClick={createNewChat}>
             <img src="src/assets/blacklogo.png" alt="Gpt logo" className="logo"></img>

@@ -10,7 +10,8 @@ const {
     reply, setReply,
     currThreadId, setCurrThreadId,
     prevChats, setPrevChats,
-    setNewChat
+    setNewChat,
+    setIsSidebarOpen
 } = useContext(MyContext);
 
 const [loading, setLoading] = useState(false);
@@ -75,12 +76,31 @@ const handleProfileClick = () => {
 }
     return (
         <div className="chatWindow">
-            <div className="navbar">
+            {/* <div className="navbar">
                 <span>MyBuddy <i className="fa-solid fa-angle-down"></i></span>
                 <div className="userIconDiv" onClick={handleProfileClick}>
                    <span className="userIcon"><i className="fa-solid fa-user"></i></span>
                 </div>
-            </div>
+            </div> */}
+
+            <div className="navbar">
+    <div className="navLeft">
+        <button
+            className="menuBtn"
+            onClick={() => setIsSidebarOpen(true)}
+        >
+            <i className="fa-solid fa-bars"></i>
+        </button>
+
+        <span>MyBuddy <i className="fa-solid fa-angle-down"></i></span>
+    </div>
+
+    <div className="userIconDiv" onClick={handleProfileClick}>
+        <span className="userIcon">
+            <i className="fa-solid fa-user"></i>
+        </span>
+    </div>
+</div>
 
 
             {

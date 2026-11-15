@@ -28,7 +28,24 @@
 
 .usericonDiv{
     margin:1rem 2rem;
+    cursor: pointer;
 }
+
+/* //for responsiveness -----------*/
+.navLeft {
+    display: flex;
+    align-items: center;
+}
+
+.menuBtn {
+    display: none;
+    border: none;
+    margin: 0;
+    padding: 10px;
+    font-size: 20px;
+}
+
+/* ------------------------------------*/
 
 .userIcon{
     background-color: #339cff;
@@ -139,4 +156,45 @@ input:focus{
 .dropDownItem:hover {
     background-color: rgba(180, 180, 180, 0.1);
     border-radius: 6px;
+}
+
+
+/* for responsiveness */
+@media screen and (max-width: 768px) {
+
+    .menuBtn {
+        display: flex;
+        margin-left: 10px;
+    }
+
+    .navbar span {
+        margin: 1rem 0.5rem;
+    }
+
+    .userIconDiv {
+        margin: 1rem;
+    }
+
+    .chatInput {
+        padding: 0 12px;
+        box-sizing: border-box;
+    }
+
+    .inputBox {
+        width: 100%;
+    }
+
+    input {
+        box-sizing: border-box;
+        padding: 16px 45px 16px 15px;
+    }
+
+    .info {
+        font-size: 11px;
+        text-align: center;
+    }
+
+    .dropDown {
+        right: 10px;
+    }
 }

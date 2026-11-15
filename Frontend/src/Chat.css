@@ -1,4 +1,4 @@
-.chats {
+/* .chats {
     max-width: 700px;
     overflow-y: scroll;
     padding:8rem;
@@ -33,4 +33,104 @@
 
 pre{
     white-space: pre-wrap;
+} */
+
+
+
+
+/* after responsive css */
+.chats {
+    width: 100%;
+    max-width: 700px;
+    overflow-y: auto;
+    scrollbar-width: none;
+    padding: 8rem 2rem;
+    box-sizing: border-box;
+}
+
+.chats + h1 {
+    font-size: 1.5rem;
+}
+
+h1 {
+    font-size: clamp(1.3rem, 4vw, 2rem);
+    padding: 0 12px;
+    text-align: center;
+}
+
+.chats::-webkit-scrollbar {
+    display: none;
+}
+
+.userDiv {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 0.9rem;
+}
+
+.gptDiv {
+    text-align: left;
+    font-size: 0.9rem;
+    overflow-wrap: anywhere;
+
+    /* for responsive */
+     min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+/* for responsive */
+.gptDiv pre {
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+.gptDiv img {
+    max-width: 100%;
+    height: auto;
+}
+
+.gptDiv table {
+    display: block;
+    max-width: 100%; 
+    overflow-x: auto;
+}
+/* ------------------------------ */
+
+
+.userMassage {
+    background-color: #323232;
+    padding: 10px 20px;
+    border-radius: 12px;
+    max-width: 500px;
+    width: fit-content;
+    margin-left: auto;
+    box-sizing: border-box;
+    overflow-wrap: anywhere;
+}
+
+.hljs {
+    border-radius: 14px;
+}
+
+pre {
+    white-space: pre-wrap;
+    overflow-x: auto;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+@media screen and (max-width: 768px) {
+    .chats {
+        padding: 2rem 12px;
+    }
+
+    .userMassage {
+        max-width: 85%;
+        padding: 10px 14px;
+    }
+
+    .userDiv,
+    .gptDiv {
+        font-size: 0.85rem;
+    }
 }
