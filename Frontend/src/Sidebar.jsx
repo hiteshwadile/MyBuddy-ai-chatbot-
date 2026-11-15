@@ -120,7 +120,8 @@ function Sidebar() {
         <section className={`sidebar ${isSidebarOpen ? "sidebar-open" : ""}`}>   
             {/* {new chat button} */}
             <button onClick={createNewChat}>
-            <img src="src/assets/blacklogo.png" alt="Gpt logo" className="logo"></img>
+            {/* <img src="src/assets/blacklogo.png" alt="Gpt logo" className="logo"></img> */}
+            <i className="fa-brands fa-openai logo"></i>
             <span><i className="fa-regular fa-pen-to-square button"></i></span>
             </button>
 
